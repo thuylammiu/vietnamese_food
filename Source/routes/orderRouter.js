@@ -1,8 +1,13 @@
 const express = require('express');
-const router = express.Router();
+const controller = require('../controller/orderController');
 
-router.get('/', (req, res, next) => {
-    res.render('order');
-})
+const orderRouter = express.Router();
 
-module.exports = router;
+orderRouter.get('/',controller.showOrderPage);
+orderRouter.post('/complete',controller.completeOrder);
+
+orderRouter.get('/complete/:id',controller.showCompleteOrder);
+
+orderRouter.use('/updateOrder',controller.updateOrder);
+
+module.exports = orderRouter;

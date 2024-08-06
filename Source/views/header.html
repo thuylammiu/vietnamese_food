@@ -1,15 +1,59 @@
 <div class="center">
     <div class="header-container">
         <div class="leftHeader">
-            <img src="images/logo.png" id="logo" alt="Logo" />
+            <img src="/images/logo.png" id="logo" alt="Logo" />
         </div>
         <div class="rightHeader">
             <ul class="navbar">
-                <li><a href="/index" class="active">Home</a></li>
-                <li><a href="/menu">Menu</a></li>
-                <li><a href="/reservation">Reservation</a></li>
-                <li><a href="/order">Order Online</a></li>
+                <li><a href="/index" id="index" class="active">Home</a></li>
+                <li><a href="/menu" id="menu">Menu</a></li>
+                <li><a href="/reservation" id="reservation">Reservation</a></li>
+                <li><a href="/order" id="order" class="notification">
+                    <span>Order</span>
+                    <span class="badge" style="display: none;"></span></a></li>
             </ul>
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="css/style.css"/>
+<script src="/js/script.js"></script>
+<script>
+        const pathArray = window.location.pathname.split('/');
+        const firstLevelPath = pathArray[1];
+        const activeElements = document.getElementsByClassName('active');
+
+        Array.from(activeElements).forEach(element => {
+            element.classList.remove('active');
+        });
+
+        document.getElementById(firstLevelPath).classList.add('active');
+
+        let items = <%-JSON.stringify(orderItems)%>;
+        showBadge(items);
+        function showBadge(items){
+            if(Array.isArray(items) && items.length > 0) {
+                $(".notification .badge").show();
+                $(".notification .badge").html(items.length);
+            }else{
+                $(".notification .badge").hide();
+            }
+        }
+            
+</script>
+<style type="text/css">
+    .notification {
+        text-decoration: none;
+        position: relative;
+    }
+
+    .notification .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background: red;
+        color: white;
+    }
+</style>

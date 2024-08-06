@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Order Confirmation</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/css/order.css">
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/home.css"/>
+    <style>
+        h1, h2 {
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        p {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <%- include('./header.html') %>
+    </header>
+    <div class="container" id="order-container">
+        <h3>Thank you for your order, <strong><%= ordName %></strong>!</h3>
+        <br/>
+        <h2>Order Detail</h2>
+        <h5>Order ID: <%=ordId%></h5>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Dish Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% items.forEach(item=> { %>
+                    <tr>
+                        <td>
+                            <%= item.dishName %>
+                        </td>
+                        <td>
+                            <%= item.quantity %>
+                        </td>
+                        <td class="price"><%= item.price %>
+                        </td>
+                        <td class="price"><%= item.price * item.quantity %>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+        <p><strong>Total Price:
+            <span id="grandTotal" class="price"><%= totalPrice %></span></strong>
+        </p>
+        <p><strong>Shipping Address:</strong>
+            <%= ordAddress %>
+        </p>
+        <p><strong>Phone:</strong>
+            <%= ordPhone %>
+        </p>
+    </div>
+    <footer>
+        <%- include('./footer.html') %>
+    </footer>
+</body>
+
+</html>
